@@ -1,35 +1,13 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY || 're_Fz2B9DDM_JB55pisHTxh5q8essvyMssku');
 import { IBooking } from '@/models/Booking';
 import { getPriceForSlotDuration } from '@/lib/config';
 
 export async function sendBookingConfirmationEmail(booking: IBooking): Promise<boolean> {
   try {
-    const emailUser = process.env.EMAIL_USER;
-    const emailPassword = process.env.EMAIL_PASSWORD;
-
-    if (!emailUser || !emailPassword) {
-      return false;
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPassword,
-      },
-      // Works in both development and production
-      secure: true,
-      tls: {
-        rejectUnauthorized: false, // Allow self-signed certificates if needed
-      },
-    });
-
-    // Verify connection before sending
-    try {
-      await transporter.verify();
-    } catch (verifyError: any) {
-      throw verifyError;
-    }
+    const emailFrom = process.env.EMAIL_FROM || 'Activerse <bookings@activerse.co.in>';
+    const emailReplyTo = process.env.EMAIL_USER || 'activersepvtltd@gmail.com';
 
     const bookingDate = new Date(booking.booking_date).toLocaleDateString('en-IN', {
       weekday: 'long',
@@ -45,7 +23,8 @@ export async function sendBookingConfirmationEmail(booking: IBooking): Promise<b
     const bookingId = booking._id?.toString() || 'N/A';
 
     const mailOptions = {
-      from: emailUser,
+      from: emailFrom,
+      reply_to: emailReplyTo,
       to: booking.email,
       subject: `Booking Confirmation - Activerse (Booking ID: ${bookingId})`,
       html: `
@@ -137,7 +116,7 @@ export async function sendBookingConfirmationEmail(booking: IBooking): Promise<b
               </div>
               
               <div class="footer">
-                <p>If you have any questions, please contact us at ${emailUser}</p>
+                <p>If you have any questions, please contact us at activersepvtltd@gmail.com</p>
                 <p>© ${new Date().getFullYear()} Activerse. All rights reserved.</p>
               </div>
             </div>
@@ -147,7 +126,7 @@ export async function sendBookingConfirmationEmail(booking: IBooking): Promise<b
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send(mailOptions);
     return true;
   } catch (error: any) {
     return false;
@@ -159,35 +138,12 @@ export async function sendBookingConfirmationEmail(booking: IBooking): Promise<b
  */
 export async function sendNewsletterWelcomeEmail(email: string): Promise<boolean> {
   try {
-    const emailUser = process.env.EMAIL_USER;
-    const emailPassword = process.env.EMAIL_PASSWORD;
-
-    if (!emailUser || !emailPassword) {
-      return false;
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPassword,
-      },
-      // Works in both development and production
-      secure: true,
-      tls: {
-        rejectUnauthorized: false, // Allow self-signed certificates if needed
-      },
-    });
-
-    // Verify connection before sending
-    try {
-      await transporter.verify();
-    } catch (verifyError: any) {
-      throw verifyError;
-    }
+    const emailFrom = process.env.EMAIL_FROM || 'Activerse <bookings@activerse.co.in>';
+    const emailReplyTo = process.env.EMAIL_USER || 'activersepvtltd@gmail.com';
 
     const mailOptions = {
-      from: emailUser,
+      from: emailFrom,
+      reply_to: emailReplyTo,
       to: email,
       subject: 'Welcome to Activerse - Your Ultimate Gaming Experience Awaits!',
       html: `
@@ -309,7 +265,7 @@ export async function sendNewsletterWelcomeEmail(email: string): Promise<boolean
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send(mailOptions);
     return true;
   } catch (error: any) {
     return false;

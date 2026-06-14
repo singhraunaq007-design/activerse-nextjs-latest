@@ -1,4 +1,6 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY || 're_Fz2B9DDM_JB55pisHTxh5q8essvyMssku');
 import { IBooking } from '@/models/Booking';
 import { getPriceForSlotDuration } from '@/lib/config';
 
@@ -7,31 +9,12 @@ import { getPriceForSlotDuration } from '@/lib/config';
  */
 export async function sendAdminBookingNotification(booking: IBooking): Promise<boolean> {
   try {
-    const emailUser = process.env.EMAIL_USER;
-    const emailPassword = process.env.EMAIL_PASSWORD;
-    const adminEmail = process.env.ADMIN_EMAIL || emailUser;
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+    const emailFrom = process.env.EMAIL_FROM || 'Activerse <bookings@activerse.co.in>';
+    const emailReplyTo = process.env.EMAIL_USER || 'activersepvtltd@gmail.com';
 
-    if (!emailUser || !emailPassword) {
+    if (!adminEmail) {
       return false;
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPassword,
-      },
-      // Works in both development and production
-      secure: true,
-      tls: {
-        rejectUnauthorized: false, // Allow self-signed certificates if needed
-      },
-    });
-
-    try {
-      await transporter.verify();
-    } catch (verifyError: any) {
-      throw verifyError;
     }
 
     const bookingDate = new Date(booking.booking_date).toLocaleDateString('en-IN', {
@@ -47,7 +30,8 @@ export async function sendAdminBookingNotification(booking: IBooking): Promise<b
     const bookingId = booking._id?.toString() || 'N/A';
 
     const mailOptions = {
-      from: emailUser,
+      from: emailFrom,
+      reply_to: emailReplyTo,
       to: adminEmail,
       subject: `🎉 New Booking Confirmed - Activerse (Booking ID: ${bookingId})`,
       html: `
@@ -144,7 +128,7 @@ export async function sendAdminBookingNotification(booking: IBooking): Promise<b
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send(mailOptions);
     return true;
   } catch (error: any) {
     return false;
