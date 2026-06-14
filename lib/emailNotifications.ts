@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY || 're_Fz2B9DDM_JB55pisHTxh5q8essvyMssku');
+const resend = new Resend(process.env.RESEND_API_KEY);
 import { IBooking } from '@/models/Booking';
 import { getPriceForSlotDuration } from '@/lib/config';
 
