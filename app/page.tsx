@@ -135,7 +135,7 @@ export default function Home() {
           <h2 className="section-title">Featured Games</h2>
           <div className="games-grid">
             <GameCard
-              image="/games/power clmb.png"
+              image="https://res.cloudinary.com/dn6qnpwqw/image/upload/v1781431813/activerse_games/power_clmb.png"
               alt="POWER CLIMB"
               title="POWER CLIMB"
               description="Challenge your limits and climb to victory"
@@ -149,7 +149,7 @@ export default function Home() {
               badgeColor="text-yellow-400"
             />
             <GameCard
-              image="/games/mega grid.png"
+              image="https://res.cloudinary.com/dn6qnpwqw/image/upload/v1781431810/activerse_games/mega_grid.png"
               alt="MEGA GRID"
               title="MEGA GRID"
               description="Navigate the digital grid and dominate"
@@ -163,7 +163,7 @@ export default function Home() {
               badgeColor="text-white"
             />
             <GameCard
-              image="/games/laser escape.png"
+              image="https://res.cloudinary.com/dn6qnpwqw/image/upload/v1781431808/activerse_games/laser_escape.png"
               alt="LASER ESCAPE"
               title="LASER ESCAPE"
               description="Dodge lasers and escape the maze"
@@ -177,7 +177,7 @@ export default function Home() {
               badgeColor="text-white"
             />
             <GameCard
-              image="/games/battle arena.png"
+              image="https://res.cloudinary.com/dn6qnpwqw/image/upload/v1781431803/activerse_games/battle_arena.png"
               alt="BATTLE ARENA"
               title="BATTLE ARENA"
               description="Enter the arena and prove your skills"
@@ -191,7 +191,7 @@ export default function Home() {
               badgeColor="text-black"
             />
             <GameCard
-              image="/games/Air shoot.png"
+              image="https://res.cloudinary.com/dn6qnpwqw/image/upload/v1781431896/activerse_games/Air_shoot.jpg"
               alt="AIR SHOOT"
               title="AIR SHOOT"
               description="Take aim and dominate the skies"
@@ -205,7 +205,7 @@ export default function Home() {
               badgeColor="text-lime-400"
             />
             <GameCard
-              image="/games/Basketball.png"
+              image="https://res.cloudinary.com/dn6qnpwqw/image/upload/v1781431800/activerse_games/Basketball.png"
               alt="BASKET BALL"
               title="BASKET BALL"
               description="Shoot for the stars and score big"
