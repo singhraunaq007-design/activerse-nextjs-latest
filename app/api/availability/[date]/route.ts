@@ -26,10 +26,16 @@ export async function GET(
     const maxPerSlot = settings.maxBookingsPerSlot;
 
     // For each date we only count bookings for that date — so a new day always has 0 booked (default full availability)
+    // Only count pending bookings if they were created in the last 15 minutes
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+    
     const bookings = await Booking.find({
       booking_date: date,
       slot_duration: slotDuration,
-      status: { $in: ['confirmed', 'pending'] },
+      $or: [
+        { status: 'confirmed' },
+        { status: 'pending', created_at: { $gte: fifteenMinutesAgo } }
+      ],
     });
 
     const bookedByTime: Record<string, number> = {};

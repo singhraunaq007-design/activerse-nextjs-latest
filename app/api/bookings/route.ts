@@ -88,11 +88,15 @@ export async function POST(request: Request) {
       );
     }
 
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
     const existingBookings = await Booking.find({
       booking_date,
       booking_time,
       slot_duration: validSlotDuration,
-      status: { $in: ['confirmed', 'pending'] },
+      $or: [
+        { status: 'confirmed' },
+        { status: 'pending', created_at: { $gte: fifteenMinutesAgo } }
+      ],
     });
     const totalGuestsBooked = existingBookings.reduce((sum, booking) => sum + booking.number_of_guests, 0);
 
@@ -123,7 +127,7 @@ export async function POST(request: Request) {
       number_of_guests,
       special_requests: special_requests || '',
       status: 'pending',
-      payment_status: 'not_required',
+      payment_status: 'pending',
       amount_paid: 0,
       currency: 'inr',
     });
