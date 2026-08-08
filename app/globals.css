@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -568,4 +569,20 @@
   .status-cancelled {
     @apply bg-red-500/20 text-red-400;
   }
+}
+
+/* Dark scrollbar theme (added for the new site design; visually consistent
+   with the existing black background used everywhere, admin included) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f9004d;
 }

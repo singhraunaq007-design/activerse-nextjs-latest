@@ -1,0 +1,60 @@
+.marqueeStrip {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  padding: 18px 0;
+  user-select: none;
+  border-top: 1px solid rgba(249, 0, 77, 0.2);
+  border-bottom: 1px solid rgba(249, 0, 77, 0.2);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+  align-items: center;
+}
+
+.reverse {
+  animation-direction: reverse;
+}
+
+.word {
+  font-family: var(--font-heading);
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: 900;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  display: inline-block;
+  padding: 0 60px;
+  line-height: 1;
+
+  /* See-through hollow text — white outline on black */
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.85);
+}
+
+/* Every other word uses the brand red stroke */
+.word:nth-child(odd) {
+  -webkit-text-stroke: 2px #f9004d;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .word {
+    font-size: clamp(40px, 15vw, 80px);
+    padding: 0 30px;
+    letter-spacing: 4px;
+    -webkit-text-stroke-width: 1.5px;
+  }
+}

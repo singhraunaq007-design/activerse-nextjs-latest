@@ -1,0 +1,19 @@
+.siteRoot {
+  /* New-design tokens, scoped to this page only so the admin dashboard
+     and policy pages keep their existing Tailwind/Rajdhani look. */
+  --font-heading: var(--font-michroma), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-activerse-red: #f9004d;
+  --color-activerse-red-glow: rgba(249, 0, 77, 0.4);
+
+  position: relative;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.siteRoot a {
+  color: inherit;
+  text-decoration: none;
+}

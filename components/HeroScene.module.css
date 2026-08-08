@@ -1,0 +1,363 @@
+.heroContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #020000;
+}
+
+/* ── Cinematic intro flash ── */
+.introFlash {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  animation: introFlashAnim 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes introFlashAnim {
+  0%   { opacity: 1; background: rgba(255, 255, 255, 1); transform: scale(1.04); }
+  20%  { opacity: 1; background: rgba(249, 0, 77, 0.95); transform: scale(1.02); }
+  55%  { opacity: 0.6; background: rgba(249, 0, 77, 0.4); transform: scale(1); }
+  100% { opacity: 0; background: rgba(0, 0, 0, 0); transform: scale(1); }
+}
+
+/* ── Persistent breathing color glow overlay ── */
+.colorGlowOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  animation: glowBreathe 5s ease-in-out infinite alternate;
+}
+
+@keyframes glowBreathe {
+  0% {
+    opacity: 0.5;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(255, 255, 255, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 90% 40% at 85% 50%,  rgba(249, 0, 77, 0.14)   0%, transparent 55%),
+      radial-gradient(ellipse 100% 35% at 50% 100%, rgba(0, 0, 0, 0.6)       0%, transparent 60%);
+  }
+  40% {
+    opacity: 1;
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 0%,   rgba(255, 255, 255, 0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 55% at 80% 55%,  rgba(249, 0, 77, 0.32)   0%, transparent 60%),
+      radial-gradient(ellipse 110% 40% at 50% 100%, rgba(0, 0, 0, 0.75)      0%, transparent 60%);
+  }
+  100% {
+    opacity: 0.65;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse 85% 45% at 82% 48%,  rgba(249, 0, 77, 0.2)    0%, transparent 55%),
+      radial-gradient(ellipse 95% 38% at 50% 100%, rgba(0, 0, 0, 0.65)      0%, transparent 58%);
+  }
+}
+
+/* ── Mouse cursor dark shadow ── */
+.cursorShadow {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  transition: background 0.08s linear;
+  mix-blend-mode: multiply;
+}
+
+/* ── Mobile CSS-only background (replaces Three.js canvas) ── */
+.mobileBackground {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #020000;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.mobileCssGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 51, 0, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 51, 0, 0.18) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridPulse 4s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+.mobileGridGlow {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 60%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(249,0,77,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+@keyframes gridPulse {
+  from { opacity: 0.6; transform: perspective(600px) rotateX(12deg) scale(1.05); }
+  to   { opacity: 1.0; transform: perspective(600px) rotateX(8deg)  scale(1.08); }
+}
+
+.canvasWrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+}
+
+.silhouetteWrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: screen; /* To make pure black transparent */
+}
+
+.silhouetteVideo {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0.8;
+}
+
+.silhouetteFade {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 30vh;
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+.glassBox {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  z-index: 10;
+  max-width: 750px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.82) 0%, rgba(5,0,0,0.75) 100%);
+  padding: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255,255,255,0.04), 0 0 40px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+
+/* Interactive Color Grid */
+.interactiveGrid {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.gridCell {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.gridCell:hover {
+  background-color: rgba(249, 0, 77, 0.1);
+  border-color: rgba(249, 0, 77, 0.5);
+  box-shadow: inset 0 0 20px rgba(249, 0, 77, 0.2);
+  transition: all 0.1s ease;
+}
+
+.gridCell.clicked {
+  background-color: rgba(249, 0, 77, 0.2);
+  border-color: var(--color-activerse-red);
+  box-shadow: inset 0 0 40px rgba(249, 0, 77, 0.6), 0 0 20px rgba(249, 0, 77, 0.3);
+}
+
+/* Box Content Layering */
+.boxContent {
+  position: relative;
+  z-index: 2;
+  pointer-events: none; /* Let clicks pass through to grid */
+}
+
+.boxContent > * {
+  pointer-events: auto; /* Re-enable clicks for text and buttons */
+}
+
+.title {
+  color: #fff;
+  font-size: 3.5rem;
+  margin-bottom: 25px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-family: 'Michroma', var(--font-heading), sans-serif;
+  text-shadow: 0 0 40px rgba(249, 0, 77, 0.5);
+  /* Ensure it's always legible regardless of background */
+  -webkit-font-smoothing: antialiased;
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  font-family: var(--font-body);
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+/* Hero Button */
+.heroBtn {
+  background: rgba(249, 0, 77, 0.1);
+  border: 1px solid var(--color-activerse-red);
+  color: #fff;
+  padding: 15px 30px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 10px rgba(249, 0, 77, 0.2);
+}
+
+.heroBtn:hover {
+  background: var(--color-activerse-red);
+  color: #000;
+  box-shadow: 0 0 30px rgba(249, 0, 77, 0.6);
+  transform: scale(1.05);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.playBtn {
+  background: transparent;
+  border: 1px solid var(--color-activerse-red);
+  color: var(--color-activerse-red);
+  padding: 15px 30px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.playBtn:hover {
+  background: var(--color-activerse-red);
+  color: #000;
+  box-shadow: 0 0 20px rgba(249, 0, 77, 0.4);
+}
+
+/* Bottom Navigation Bar */
+.bottomNav {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 40px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navItem {
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  position: relative;
+}
+
+.navItem::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--color-activerse-red);
+  transition: width 0.3s ease;
+}
+
+.navItem:hover {
+  color: var(--color-activerse-red);
+  text-shadow: 0 0 15px var(--color-activerse-red-glow);
+}
+
+.navItem:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .glassBox {
+    left: 5%;
+    right: 5%;
+    max-width: none;
+    padding: 36px 28px;
+    /* Slightly darker glass on mobile so text pops */
+    background: linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(5,0,0,0.6) 100%);
+    border-color: rgba(249, 0, 77, 0.25);
+  }
+  .title {
+    font-size: 2.6rem;
+    color: #ffffff;
+    text-shadow: 0 2px 20px rgba(249,0,77,0.6), 0 0 60px rgba(249,0,77,0.2);
+  }
+  .description {
+    color: #e0e0e0;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .glassBox {
+    padding: 28px 20px;
+    top: 52%;
+    left: 4%;
+    right: 4%;
+  }
+  .title {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 2px 16px rgba(249,0,77,0.7);
+  }
+  .description {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    color: #ddd;
+  }
+  .buttonGroup {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .heroBtn, .playBtn {
+    width: 100%;
+    text-align: center;
+    padding: 13px 15px;
+    font-size: 0.85rem;
+  }
+}
+

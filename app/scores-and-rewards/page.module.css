@@ -1,0 +1,641 @@
+.pageWrapper {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #020000;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Animated CSS Grid Background (matches home HeroScene) ── */
+@keyframes gridPulse {
+  from { opacity: 0.5; transform: perspective(800px) rotateX(14deg) scale(1.04); }
+  to   { opacity: 0.9; transform: perspective(800px) rotateX(8deg)  scale(1.08); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pageBgGrid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pageBgGrid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 51, 0, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 51, 0, 0.16) 1px, transparent 1px);
+  background-size: 45px 45px;
+  animation: gridPulse 5s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+.pageBgGrid::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 65%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(249,0,77,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 1. EMBLEM DECORATION BACKGROUND */
+.bgEmblemContainer {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  width: 50vw;
+  max-width: 600px;
+  height: 50vw;
+  max-height: 600px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.bgEmblem {
+  width: 100%;
+  height: 100%;
+}
+
+/* 2. SEARCH LAYOUT SECTION (DARK THEME) */
+.searchSection {
+  background-color: transparent;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 8% 80px 8%;
+  position: relative;
+  z-index: 5;
+  color: #fff;
+}
+
+.searchContainer {
+  max-width: 650px;
+  position: relative;
+  z-index: 10;
+}
+
+.preTitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #888;
+  display: block;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.mainTitle {
+  font-family: var(--font-heading);
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #fff;
+  margin-bottom: 25px;
+  text-shadow: 0 0 40px rgba(249, 0, 77, 0.4);
+}
+
+.subText {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 45px;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+.inputLabel {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  color: #aaa;
+}
+
+.inputWrapper {
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  background-color: rgba(249, 0, 77, 0.05);
+  border-color: var(--color-activerse-red);
+  box-shadow: 0 0 20px rgba(249, 0, 77, 0.3);
+}
+
+.submitBtn {
+  background: rgba(249, 0, 77, 0.12);
+  border: 1px solid var(--color-activerse-red);
+  color: #ffffff;
+  padding: 16px 36px;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+  width: max-content;
+  box-shadow: inset 0 0 12px rgba(249, 0, 77, 0.2), 0 4px 20px rgba(249, 0, 77, 0.25);
+}
+
+.submitBtn:hover {
+  background: var(--color-activerse-red);
+  color: #000;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 30px rgba(249, 0, 77, 0.6);
+}
+
+
+/* 3. DASHBOARD LAYOUT SECTION (DARK THEME) */
+.dashboardSection {
+  background-color: transparent;
+  padding: 120px 5% 80px 5%;
+  z-index: 5;
+  color: #fff;
+  flex-grow: 1;
+}
+
+.dashboardContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.backBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ccc;
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  color: #fff;
+  border-color: var(--color-activerse-red);
+  background: rgba(249, 0, 77, 0.1);
+}
+
+/* PROFILE CARD */
+.profileCard {
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.profileCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 3px; height: 100%;
+  background: linear-gradient(to bottom, #00f0ff, var(--color-activerse-red));
+}
+
+.profileAvatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-activerse-red), #00f0ff);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.profileDetails {
+  flex-grow: 1;
+}
+
+.profileTag {
+  background: rgba(249, 0, 77, 0.15);
+  color: var(--color-activerse-red);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  font-family: var(--font-heading);
+  width: fit-content;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.profileName {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.profileEmail {
+  font-family: var(--font-body);
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.profileStats {
+  display: flex;
+  gap: 30px;
+}
+
+.statBlock {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 15px 25px;
+  border-radius: 8px;
+}
+
+.statIconWrapper {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  color: #888;
+  text-transform: uppercase;
+}
+
+.statVal {
+  font-size: 1.3rem;
+  font-family: var(--font-heading);
+  color: #fff;
+}
+
+.xpText {
+  font-size: 0.9rem;
+  color: #aaa;
+  font-family: var(--font-body);
+}
+
+/* SPLIT LAYOUT */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+}
+
+.sectionHeader {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  color: #fff;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.sectionHeader::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; width: 60px; height: 2px;
+  background-color: var(--color-activerse-red);
+}
+
+/* GAME CARDS */
+.gameCardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.gameCard {
+  background: rgba(25, 25, 25, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 25px;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.gameCard:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px var(--border-glow);
+  transform: translateY(-3px);
+}
+
+.gameHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.gameName {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.gameDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.gameStat {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.gameLabel {
+  color: #888;
+}
+
+.gameValue {
+  font-weight: bold;
+  color: #fff;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+/* REWARDS LIST & CARDS */
+.rewardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.rewardCard {
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.claimableCard {
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.02) 0%, rgba(20, 20, 20, 0.6) 100%);
+  box-shadow: 0 5px 15px rgba(0, 240, 255, 0.05);
+}
+
+.rewardHeader {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.rewardIconBg {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.claimableCard .rewardIconBg {
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.rewardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rewardTitle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.rewardDesc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #aaa;
+  line-height: 1.4;
+}
+
+.rewardDate {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+.claimBtn {
+  background-color: #00f0ff;
+  border: none;
+  color: #000;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.claimBtn:hover {
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+/* LEADERBOARD */
+.leaderboardSection {
+  background: rgba(15, 15, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 25px;
+}
+
+.leaderboardList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboardRow {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background 0.2s ease;
+}
+
+.leaderboardRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.highlightedRow {
+  background: rgba(249, 0, 77, 0.05);
+  border: 1px solid rgba(249, 0, 77, 0.2);
+}
+
+.leadRank {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-activerse-red);
+  width: 45px;
+}
+
+.leadInfo {
+  flex-grow: 1;
+}
+
+.leadName {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.leadTag {
+  font-size: 0.75rem;
+  color: #777;
+  font-family: var(--font-body);
+}
+
+.leadXp {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.highlightedRow .leadXp {
+  color: var(--color-activerse-red);
+}
+
+/* 4. RESPONSIVENESS AND DEVICE SCALING MEDIA QUERIES */
+
+@media (max-width: 1024px) {
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainTitle {
+    font-size: 3rem;
+  }
+  .bgEmblemContainer {
+    opacity: 0.4;
+    right: -10%;
+    width: 70vw;
+    height: 70vw;
+  }
+  .profileCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .profileStats {
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .statBlock {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .searchSection {
+    padding: 100px 5% 60px 5%;
+  }
+  .mainTitle {
+    font-size: 2.3rem;
+  }
+  .subText {
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+  }
+  .submitBtn {
+    width: 100%;
+    text-align: center;
+  }
+  .dashboardSection {
+    padding: 100px 4% 60px 4%;
+  }
+  .gameCardsGrid {
+    grid-template-columns: 1fr;
+  }
+  .rewardCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .claimBtn {
+    width: 100%;
+    text-align: center;
+  }
+}

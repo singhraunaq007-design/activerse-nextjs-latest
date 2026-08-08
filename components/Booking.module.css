@@ -1,0 +1,597 @@
+.bookingSection {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 5%;
+  position: relative;
+}
+
+.formWrapper {
+  background: rgba(20, 20, 20, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 80px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.02);
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
+.formWrapper::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-activerse-red), transparent);
+  opacity: 0.5;
+}
+
+.formTitle {
+  font-family: var(--font-heading);
+  font-size: 4.5rem; /* Larger, more imposing */
+  color: #fff;
+  margin-bottom: 10px;
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.formSubtitle {
+  font-family: var(--font-body);
+  color: #888;
+  margin-bottom: 50px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputGroup.full {
+  grid-column: span 2;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 20px;
+  color: #aaa; /* Lighter icon default */
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.inputField {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1); /* Much brighter */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Stronger border */
+  padding: 20px 20px 20px 60px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  border-radius: 8px; /* Rounded corners */
+  transition: all 0.3s ease;
+}
+
+.inputField:focus {
+  outline: none;
+  background: rgba(249, 0, 77, 0.05); /* Slight magenta tint on focus */
+  border-color: var(--color-activerse-red);
+  box-shadow: 0 0 20px rgba(249, 0, 77, 0.3), inset 0 0 10px rgba(249, 0, 77, 0.1);
+}
+
+.inputField:focus + .inputIcon {
+  color: var(--color-activerse-red);
+}
+
+.inputField::placeholder {
+  color: #888; /* Lighter placeholder */
+}
+
+select.inputField {
+  appearance: none;
+  cursor: pointer;
+}
+
+select.inputField option {
+  background-color: #111;
+  color: #fff;
+}
+
+.priceBox {
+  width: 100%;
+  background: rgba(249, 0, 77, 0.08);
+  border: 1px solid rgba(249, 0, 77, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.squadLabel {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-activerse-red);
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--font-body);
+  color: #ddd;
+  font-size: 1rem;
+}
+
+.priceTotal {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.priceNote {
+  font-family: var(--font-body);
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.formError {
+  width: 100%;
+  background: rgba(249, 0, 77, 0.1);
+  border: 1px solid rgba(249, 0, 77, 0.4);
+  color: #ff6b93;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.submitBtn {
+  width: 100%;
+  background: var(--color-activerse-red); /* Solid background by default */
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 25px;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(249, 0, 77, 0.4);
+}
+
+.submitBtn:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .inputGrid {
+    grid-template-columns: 1fr;
+  }
+  .inputGroup.full {
+    grid-column: span 1;
+  }
+  .formWrapper {
+    padding: 40px 20px;
+  }
+  .formTitle {
+    font-size: 2.5rem;
+  }
+}
+
+/* Fancy Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.4s ease;
+  cursor: auto;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 10, 10, 0.9);
+  border: 1px solid var(--color-activerse-red);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 60px rgba(249, 0, 77, 0.3);
+  animation: slideUp 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modalText {
+  padding: 40px;
+  text-align: center;
+  flex-shrink: 0;
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modalText h4 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: #fff; /* Changed from red to white for cleaner look */
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.modalText p {
+  font-family: var(--font-body);
+  color: #aaa;
+  font-size: 1.2rem;
+}
+
+.modalDetail {
+  font-size: 0.95rem !important;
+  color: #888 !important;
+  margin-top: 10px;
+}
+
+.modalErrorTitle {
+  color: var(--color-activerse-red) !important;
+}
+
+.modalImage {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  background: #111; /* Slight dark background behind image */
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--color-activerse-red);
+  color: var(--color-activerse-red);
+  width: 45px; height: 45px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.closeBtn:hover {
+  background: var(--color-activerse-red);
+  color: #000;
+  transform: rotate(90deg);
+  box-shadow: 0 0 20px rgba(249, 0, 77, 0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ─── View Pricing Button ─── */
+.viewPricingBtn {
+  width: 100%;
+  background: var(--color-activerse-red);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 25px;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(249, 0, 77, 0.4);
+}
+
+.viewPricingBtn:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+/* ─── Coupon Code ─── */
+.couponWrapper {
+  display: flex;
+  width: 100%;
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.couponWrapper:focus-within {
+  border-color: var(--color-activerse-red);
+  box-shadow: 0 0 20px rgba(249, 0, 77, 0.3), inset 0 0 10px rgba(249, 0, 77, 0.1);
+}
+
+.couponInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 20px 20px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.couponInput::placeholder {
+  color: #888;
+  letter-spacing: 0;
+}
+
+.couponApplyBtn {
+  background: var(--color-activerse-red);
+  border: none;
+  color: #000;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.couponApplyBtn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ─── Pricing Modal ─── */
+.pricingModal {
+  position: relative;
+  max-width: 560px;
+  width: 95%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(8, 8, 8, 0.98);
+  border: 1px solid var(--color-activerse-red);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.95), 0 0 80px rgba(249, 0, 77, 0.3);
+  animation: slideUp 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.closeBtnAbsolute {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--color-activerse-red);
+  color: var(--color-activerse-red);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 30;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.closeBtnAbsolute:hover {
+  background: var(--color-activerse-red);
+  color: #000;
+  transform: rotate(90deg);
+  box-shadow: 0 0 20px rgba(249, 0, 77, 0.5);
+}
+
+.pricingRight {
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.pricingPreTitle {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-activerse-red);
+  text-transform: uppercase;
+}
+
+.pricingTitle {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: #fff;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(249, 0, 77, 0.3);
+  margin: 0;
+}
+
+/* Compact 2x2 Grid */
+.pricingTiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.pricingTier {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pricingTier:hover {
+  border-color: rgba(249, 0, 77, 0.25);
+  background: rgba(249, 0, 77, 0.04);
+  transform: translateY(-2px);
+}
+
+.tierHighlight {
+  border-color: var(--color-activerse-red) !important;
+  background: rgba(249, 0, 77, 0.06) !important;
+  box-shadow: 0 0 15px rgba(249, 0, 77, 0.15);
+}
+
+.tierBadge {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-activerse-red);
+  color: #000;
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.tierLabel {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+.tierGuests {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.tierPrice {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.tierPrice span {
+  font-size: 0.7rem;
+  color: #777;
+  font-family: var(--font-body);
+  margin-left: 2px;
+}
+
+.pricingNote {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #555;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pricingCloseBtn {
+  background: var(--color-activerse-red);
+  border: none;
+  color: #000;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  padding: 10px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.pricingCloseBtn:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive fallback */
+@media (max-width: 800px) {
+  .pricingModal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .pricingRight {
+    width: 100%;
+    padding: 24px 20px;
+  }
+  .pricingTitle {
+    font-size: 1.8rem;
+  }
+}

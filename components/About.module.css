@@ -1,0 +1,106 @@
+.aboutSection {
+  width: 100vw;
+  min-height: 150vh; /* Extra height to allow for scroll pinning/scrubbing */
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 5%;
+}
+
+.textContainer {
+  max-width: 1200px;
+  text-align: center;
+}
+
+.headline {
+  font-family: var(--font-heading);
+  font-size: 7vw;
+  color: #111; /* Very dark initially */
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.word {
+  display: inline-block;
+  margin: 0 1vw;
+  transition: color 0.1s ease, text-shadow 0.1s ease;
+}
+
+/* We will use GSAP to toggle this class or animate inline styles */
+.highlight {
+  color: var(--color-activerse-red);
+  text-shadow: 0 0 40px rgba(249, 0, 77, 0.6);
+}
+
+.subtext {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 50px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Floating Gameplay Images */
+.floatingImg {
+  position: absolute;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  filter: grayscale(80%) brightness(0.6);
+  transition: filter 0.4s ease;
+}
+
+.floatingImg:hover {
+  filter: grayscale(0%) brightness(1);
+  z-index: 10;
+}
+
+.img1 {
+  width: 300px;
+  height: 200px;
+  top: 15%;
+  left: 5%;
+}
+
+.img2 {
+  width: 400px;
+  height: 250px;
+  bottom: 10%;
+  right: 8%;
+}
+
+.img3 {
+  width: 250px;
+  height: 350px;
+  top: 40%;
+  left: 10%;
+}
+
+@media (max-width: 1024px) {
+  .floatingImg {
+    display: none; /* Hide on smaller screens to keep text legible */
+  }
+}
+
+@media (max-width: 768px) {
+  .headline {
+    font-size: 10vw;
+  }
+  .subtext {
+    font-size: 1.1rem;
+    margin-top: 30px;
+    padding: 0 15px;
+    line-height: 1.6;
+  }
+}
+
